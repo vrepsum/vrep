@@ -169,6 +169,7 @@
       text-shadow: 0 0 15px rgba(255, 23, 68, 0.6), 0 0 30px rgba(255, 23, 68, 0.3);
       animation: heavyBreathing 5s ease-in-out infinite;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     @keyframes heavyBreathing {
@@ -183,6 +184,50 @@
       }
     }
 
+    /* PIN Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8); /* Dark overlay */
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+
+    .modal-content {
+      background: rgba(0, 0, 0, 0.7); /* Transparent background */
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+      border: 2px solid var(--v-color);
+    }
+
+    .modal input {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid var(--v-color);
+      background: transparent;
+      color: white;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    .modal button {
+      padding: 10px;
+      background: var(--v-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
     @media (max-width: 768px) {
       .logo {
         font-size: 2.5rem;
@@ -193,10 +238,6 @@
       }
       .v-stick {
         height: 120px;
-      }
-      .vrepsum-button {
-        font-size: 16px;
-        padding: 10px 14px;
       }
     }
   </style>
@@ -222,11 +263,27 @@
     Vrepsum/X
   </a>
 
+  <!-- Modal for PIN -->
+  <div class="modal" id="pinModal">
+    <div class="modal-content">
+      <p style="color: white;">Enter the PIN:</p>
+      <input type="password" id="pinInput" />
+      <button onclick="validatePin()">Submit</button>
+    </div>
+  </div>
+
   <script>
     let intro = document.getElementById('intro');
     let mainContent = document.getElementById('mainContent');
     let vContainer = document.getElementById('vContainer');
     let ripple = document.getElementById('ripple');
+    let logo = document.getElementById('logo');
+    let pinModal = document.getElementById('pinModal');
+    let pinInput = document.getElementById('pinInput');
+
+    // Variables to track logo clicks
+    let clickCount = 0;
+    const correctPin = "20046"; // Set your correct PIN here
 
     // Create ripple after V is formed
     setTimeout(() => {
@@ -252,6 +309,29 @@
       mainContent.classList.add('visible');
     }, 3000);
 
+    // Handle logo click to track clicks
+    logo.addEventListener('click', () => {
+      clickCount++;
+      if (clickCount === 4) {
+        pinModal.style.display = 'flex'; // Show the modal after 4 clicks
+      }
+    });
+
+    // Validate the PIN
+    function validatePin() {
+      if (pinInput.value === correctPin) {
+        window.location.href = "passcorrect.html"; // Redirect to the new page
+      } else {
+        alert("Incorrect PIN. Please try again.");
+      }
+    }
+
+    // Close the PIN modal when clicking outside the box
+    pinModal.addEventListener('click', function(event) {
+      if (event.target === pinModal) {
+        pinModal.style.display = 'none'; // Close the modal
+      }
+    });
   </script>
 
 </body>
