@@ -23,6 +23,24 @@
       overflow: hidden;
     }
 
+    /* === VREPSUM/X BUTTON === */
+    .vrepsum-button {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: none;
+      color: var(--v-color);
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 100;
+      opacity: 1;
+      transition: transform 0.3s ease;
+    }
+
     .intro {
       position: fixed;
       inset: 0;
@@ -176,11 +194,16 @@
       .v-stick {
         height: 120px;
       }
+      .vrepsum-button {
+        font-size: 16px;
+        padding: 10px 14px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Intro Section -->
   <div class="intro" id="intro">
     <div class="v-container" id="vContainer">
       <div class="ripple" id="ripple"></div>
@@ -189,16 +212,21 @@
     </div>
   </div>
 
+  <!-- Main Content -->
   <div class="main-content" id="mainContent">
     <div class="logo" id="logo">Vrepsum</div>
   </div>
+
+  <!-- Vrepsum/X Button (Link to Twitter) -->
+  <a href="https://twitter.com/vrepsum" class="vrepsum-button" target="_blank" id="vrepsumButton">
+    Vrepsum/X
+  </a>
 
   <script>
     let intro = document.getElementById('intro');
     let mainContent = document.getElementById('mainContent');
     let vContainer = document.getElementById('vContainer');
     let ripple = document.getElementById('ripple');
-    let breathPaused = false;
 
     // Create ripple after V is formed
     setTimeout(() => {
